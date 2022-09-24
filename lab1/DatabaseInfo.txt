@@ -1,0 +1,13 @@
+CREATE TABLE accounts (
+	id serial PRIMARY KEY,
+	login VARCHAR(50) UNIQUE NOT NULL,
+	password VARCHAR(50) NOT NULL,
+	email VARCHAR(255) UNIQUE NOT NULL
+)
+
+create table products(
+	id serial primary key,
+	user_id integer REFERENCES accounts(id),
+	name varchar(50) not null,
+	count integer not null
+)

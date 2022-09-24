@@ -1,0 +1,1 @@
+C:\dev\glassfish6\bin\asadmin.bat start-domain
