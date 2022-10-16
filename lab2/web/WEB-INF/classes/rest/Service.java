@@ -6,7 +6,6 @@ import java.util.List;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -21,15 +20,6 @@ import model.user.UserDAO;
 
 @Path("/")
 public class Service {
-    
-    @Path("/test")
-    @GET
-    @Produces("application/json")
-    public Response test(){
-        Jsonb jsonb = JsonbBuilder.create();
-        String resultJSON = jsonb.toJson(new String("test"));
-        return Response.ok(resultJSON).build();
-    }
 
     @POST
     @Path("/auth")
