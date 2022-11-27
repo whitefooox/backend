@@ -22,7 +22,7 @@ export const MainPage = (() => {
 
     function createInfo(anime){
         let div = document.createElement('div');
-        let text = document.createElement('p');
+        let text = document.createElement('h2');
         let image = document.createElement('img');
         let br = document.createElement('br');
         let br2 = document.createElement('br');

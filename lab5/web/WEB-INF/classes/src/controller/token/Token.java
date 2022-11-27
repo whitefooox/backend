@@ -1,4 +1,4 @@
-package src.model.auth.token;
+package src.controller.token;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

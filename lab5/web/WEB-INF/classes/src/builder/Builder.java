@@ -3,8 +3,8 @@ package src.builder;
 import jakarta.enterprise.inject.Default;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
-import src.model.api.in.IAuth;
 import src.model.api.out.IUserRepository;
+import src.model.auth.IAuth;
 
 public class Builder {
     

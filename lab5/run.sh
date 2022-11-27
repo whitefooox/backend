@@ -1,7 +1,7 @@
 clear
 echo "[*] Компиляция"
 find -name "*.java" > sources.txt
-javac @sources.txt -classpath "./web/WEB-INF/classes:/home/whitefox/dev/lib/glassfish-6.2.5/glassfish6/glassfish/lib/javaee.jar:/home/whitefox/dev/lib/jsoup-1.15.3.jar:/home/whitefox/dev/lib/glassfish-6.2.5/glassfish6/glassfish/modules/jakarta.enterprise.cdi-api.jar"
+javac @sources.txt -classpath "./web/WEB-INF/classes:/home/whitefox/dev/lib/glassfish-6.2.5/glassfish6/glassfish/lib/javaee.jar:/home/whitefox/dev/lib/glassfish-6.2.5/glassfish6/glassfish/lib/jsoup-1.15.3.jar:/home/whitefox/dev/lib/glassfish-6.2.5/glassfish6/glassfish/modules/jakarta.enterprise.cdi-api.jar"
 echo "[*] Сборка war-архива"
 cd web
 jar -cf ../target/web.war *

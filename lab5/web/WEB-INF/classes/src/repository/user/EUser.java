@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import src.model.api.dto.User;
 
 @Entity
 @Table(name = "\"accounts\"")
@@ -53,5 +54,11 @@ public class EUser implements Serializable {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setAll(User user){
+        setLogin(user.getLogin());
+        setPassword(user.getPassword());
+        setEmail(user.getEmail());
     }
 }

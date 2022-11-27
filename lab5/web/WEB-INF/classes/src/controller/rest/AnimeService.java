@@ -34,14 +34,14 @@ public class AnimeService {
 
     @POST
     @TokenRequired
-    @Path("/download")
+    @Path("/source")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response download(String json, @Context HttpHeaders headers){
+    public Response source(String json, @Context HttpHeaders headers){
         String userAgent = headers.getRequestHeader("userAgent").get(0);
         Jsonb jsonb = JsonbBuilder.create();
         String url = jsonb.fromJson(json, String.class);
-        String source = watch.download(url, userAgent);
+        String source = watch.source(url, userAgent);
         return Response.ok(jsonb.toJson(source)).build();
     }
 }

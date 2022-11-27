@@ -32,7 +32,7 @@ export const Anime = (() => {
         let login = Auth.getLogin();
         let token = Auth.getToken();
         return new Promise((resolve, reject) => {
-            fetch("api/anime/download/", {
+            fetch("api/anime/source/", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json;charset=UTF-8',

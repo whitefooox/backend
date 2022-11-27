@@ -1,7 +1,7 @@
 import { Router } from "./router.js";
-import { LoginPage } from "../view/login.js"
 import { MainPage } from "../view/main.js"
+import { AuthPage } from '../view/auth.js'
 
-Router.appendRoute('login', LoginPage);
+Router.appendRoute('auth', AuthPage);
 Router.appendRoute('main', MainPage);
-Router.onNavigate('login');
+Router.onNavigate('auth');

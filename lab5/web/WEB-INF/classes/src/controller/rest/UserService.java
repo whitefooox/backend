@@ -10,7 +10,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 import src.builder.Built;
 import src.model.api.dto.User;
-import src.model.api.in.IAuth;
+import src.model.auth.IAuth;
 
 @Path("/user")
 public class UserService {
@@ -26,10 +26,29 @@ public class UserService {
         Jsonb jsonb = JsonbBuilder.create();
         User user = jsonb.fromJson(dataJSON, User.class);
         try {
-            if (auth.login(user.getLogin(), user.getPassword())){
-                return Response.ok(jsonb.toJson(auth.createToken(user.getLogin()))).build();
+            if (auth.login(user)){
+                return Response.ok(jsonb.toJson(auth.createToken(user))).build();
             }
             else {
+                return Response.status(Response.Status.UNAUTHORIZED).build();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.serverError().build();
+        }
+    }
+
+    @POST
+    @Path("/reg")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response reg(String dataJSON){
+        Jsonb jsonb = JsonbBuilder.create();
+        User user = jsonb.fromJson(dataJSON, User.class);
+        try {
+            if (auth.reg(user)){
+                return Response.ok(jsonb.toJson(auth.createToken(user))).build();
+            } else {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
         } catch (Exception e) {

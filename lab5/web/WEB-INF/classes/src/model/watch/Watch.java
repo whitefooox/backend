@@ -19,7 +19,7 @@ public class Watch implements IWatch {
     }
 
     @Override
-    public String download(String url, String userAgent) {
+    public String source(String url, String userAgent) {
         String result = animeRepository.download(url, userAgent);
         return result;
     }

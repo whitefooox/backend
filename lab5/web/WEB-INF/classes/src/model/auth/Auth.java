@@ -1,27 +1,27 @@
 package src.model.auth;
 
-import src.model.api.in.IAuth;
+import src.controller.token.Token;
+import src.model.api.dto.User;
 import src.model.api.out.IUserRepository;
-import src.model.auth.token.Token;
 
 public class Auth implements IAuth {
 
     private IUserRepository userRepository;
 
     @Override
-    public boolean login(String login, String password) throws Exception {
-        return userRepository.check(login, password);
+    public boolean login(User user) throws Exception {
+        return userRepository.check(user);
     }
 
     @Override
-    public String createToken(String login) throws Exception {
-        return Token.create(login);
+    public String createToken(User user) throws Exception {
+        return Token.create(user.getLogin());
     }
 
     @Override
-    public boolean checkToken(String login, String token){
+    public boolean checkToken(User user, String token){
         try {
-            return Token.check(login, token);
+            return Token.check(user.getLogin(), token);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -31,5 +31,10 @@ public class Auth implements IAuth {
     @Override
     public void injectUserRepository(IUserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    @Override
+    public boolean reg(User user) {
+        return userRepository.add(user);
     }
 }
