@@ -12,7 +12,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import src.model.api.dto.Anime;
-import src.repository.anime.IAnimeRepository;
+import src.model.api.out.IAnimeRepository;
 
 public class Jutsu implements IAnimeRepository {
     

@@ -1,4 +1,4 @@
-package src.repository.anime;
+package src.model.api.out;
 
 import java.util.List;
 
