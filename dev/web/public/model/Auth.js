@@ -1,4 +1,4 @@
-export const Auth = new class Auth {
+class Auth {
 
     async auth(user){
         const response = await fetch("api/user/auth", {
@@ -49,3 +49,19 @@ export const Auth = new class Auth {
         return localStorage.getItem('token');
     }
 }
+
+export class AuthFactory {
+   
+    static _auth = null;
+    
+    static _createInstance() {
+        return new Auth();      
+    }
+       
+    static createInstance() {
+        if (AuthFactory._auth === null) {
+            AuthFactory._auth = AuthFactory._createInstance();  
+        }      
+        return AuthFactory._auth;
+    }
+ }

@@ -1,14 +1,5 @@
-body{
-	margin: 0;
-	padding: 0;
-	justify-content: center;
-	min-height: 100vh;
-	font-family: 'Jost', sans-serif;
-	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
-}
-  
-  /* Style the search field */
-  form.example input[type=text] {
+/* Style the search field */
+form.search input[type=text] {
     padding: 10px;
     font-size: 17px;
     border: 1px solid grey;
@@ -18,7 +9,7 @@ body{
   }
   
   /* Style the submit button */
-  form.example input[type=button] {
+  form.search input[type=button] {
     /*float: left;*/
     width: 10%;
     padding: 10px;
@@ -30,27 +21,13 @@ body{
     cursor: pointer;
   }
   
-  form.example input[type=button]:hover {
+  form.search input[type=button]:hover {
     background: #0b7dda;
   }
   
   /* Clear floats */
-  form.example::after {
+  form.search::after {
     content: "";
     clear: both;
     display: table;
-  }
-
-  .logo {
-    width: 20%;
-    border-radius: 20px;
-  }
-
-  .name {
-    width: 40%;
-    text-align: center;
-  }
-
-  h2 {
-	color: white;
   }
