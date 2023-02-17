@@ -1,1 +1,0 @@
-sudo keytool -import -trustcacerts -alias jutsu -file /home/whitefox/_.jut.su -keystore /home/whitefox/dev/glassfish-6.2.5/glassfish6/glassfish/domains/domain1/config/cacerts.jks

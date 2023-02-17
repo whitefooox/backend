@@ -1,0 +1,1 @@
+~/dev/lib/glassfish7/bin/asadmin start-domain
