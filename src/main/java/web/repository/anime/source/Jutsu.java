@@ -2,7 +2,7 @@ package web.repository.anime.source;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 import org.jsoup.Jsoup;
@@ -92,7 +92,7 @@ public class Jutsu implements IAnimeRepository {
         return true;
     }
 
-    public HashMap<String, HashMap<String, String>> getData(String url){
+    public LinkedHashMap<String, LinkedHashMap<String, String>> getData(String url){
         Document document = null;
         try {
             document = Jsoup.connect(url).userAgent(this.getUserAgent()).get();
@@ -103,7 +103,7 @@ public class Jutsu implements IAnimeRepository {
         if(document.select("h1.header_video").isEmpty()){
             return null;
         }
-        HashMap<String, HashMap<String, String>> data = new HashMap<>();
+        LinkedHashMap<String, LinkedHashMap<String, String>> data = new LinkedHashMap<>();
         for (Element elem : document.select("a.short-btn")) {
             String[] fullName = elem.text().split(" ");
             for(int i = 0; i < fullName.length - 1; i++){
@@ -114,7 +114,7 @@ public class Jutsu implements IAnimeRepository {
                         case "сезон": {
                             String season = word + " " + nextWord;
                             if(data.get(season) == null){
-                                data.put(season, new HashMap<>());
+                                data.put(season, new LinkedHashMap<>());
                             }
                             String seria = fullName[i + 2] + " " + fullName[i + 3];
                             data.get(season).put(seria, this.url + elem.attr("href"));
@@ -122,7 +122,7 @@ public class Jutsu implements IAnimeRepository {
                         }
                         case "фильм": {
                             if(data.get("Фильмы") == null){
-                                data.put("Фильмы", new HashMap<>());
+                                data.put("Фильмы", new LinkedHashMap<>());
                             }
                             String seria = word + " " + nextWord;
                             data.get("Фильмы").put(seria, this.url + elem.attr("href"));
@@ -130,7 +130,7 @@ public class Jutsu implements IAnimeRepository {
                         }
                         case "серия": {
                             if(data.get("1 сезон") == null){
-                                data.put("1 сезон", new HashMap<>());
+                                data.put("1 сезон", new LinkedHashMap<>());
                             }
                             String seria = word + " " + nextWord;
                             data.get("1 сезон").put(seria, this.url + elem.attr("href"));

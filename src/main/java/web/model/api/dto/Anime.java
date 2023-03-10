@@ -1,13 +1,13 @@
 package web.model.api.dto;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Anime {
     
     private String name;
     private String url;
     private String image;
-    private HashMap<String, HashMap<String, String>> data;
+    private LinkedHashMap<String, LinkedHashMap<String, String>> data;
 
     public Anime(String name, String url, String image){
         this.name = name;
@@ -39,11 +39,11 @@ public class Anime {
         return image;
     }
 
-    public void setData(HashMap<String, HashMap<String, String>> data) {
+    public void setData(LinkedHashMap<String, LinkedHashMap<String, String>> data) {
         this.data = data;
     }
 
-    public HashMap<String, HashMap<String, String>> getData() {
+    public LinkedHashMap<String, LinkedHashMap<String, String>> getData() {
         return data;
     }
 }
