@@ -69,6 +69,9 @@ public class Jutsu implements IAnimeRepository {
                 return null;
             }
             String nameTarget = document.select("h1.header_video").first().text();
+            nameTarget = nameTarget.replaceAll("Смотреть ", "");
+            nameTarget = nameTarget.replaceAll(" все серии и сезоны", "");
+            nameTarget = nameTarget.replaceAll(" все серии", "");
             String url = document.location();
             String style = document.select("div.all_anime_title").attr("style");
             String image = style.substring(style.indexOf("'") + 1, style.lastIndexOf("'"));
