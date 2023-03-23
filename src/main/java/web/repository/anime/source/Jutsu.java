@@ -29,53 +29,47 @@ public class Jutsu implements IAnimeRepository {
         return this.userAgents.get(rand.nextInt(userAgents.size()));
     }
 
-    @Override
-    public List<Anime> getAll() {
+    private String parseName(Document document){
+        String name = document.select("h1.header_video").first().text();
+        name = name.replaceAll("Смотреть ", "");
+        name = name.replaceAll(" все серии и сезоны", "");
+        name = name.replaceAll(" все серии", "");
+        return name;
+    }
+
+    private String parseUrl(Document document){
+        return document.location();
+    }
+
+    private String parseImageUrl(Document document){
+        String style = document.select("div.all_anime_title").attr("style");
+        return style.substring(style.indexOf("'") + 1, style.lastIndexOf("'"));
+    }
+
+    public String parseDescribe(String query){
         Document document;
-        List<Anime>  allAnime;
         try {
-            document = Jsoup.connect(this.url + "/" + "anime").userAgent(this.getUserAgent()).get();
-            allAnime = new ArrayList<>();
-            Elements animes = document.select("div.all_anime_global");
-            for (Element anime : animes) {
-                String name = anime.select("div.aaname").first().text();
-                String url = this.url + anime.select("a").first().attr("href");
-                allAnime.add(new Anime(name, url, null));
-            }
-            while (!document.select("a.vnright").isEmpty()){
-                String urlNext = this.url + document.select("a.vnright").first().attr("href");
-                System.out.println(urlNext);
-                document = Jsoup.connect(urlNext).userAgent(this.getUserAgent()).get();
-                animes = document.select("div.all_anime_global");
-                for (Element anime : animes) {
-                    String name = anime.select("div.aaname").first().text();
-                    String url = this.url + anime.select("a").first().attr("href");
-                    allAnime.add(new Anime(name, url, null));
-                }
-            }
+            document = Jsoup.connect(this.url + "/" + query).userAgent(this.getUserAgent()).get();
+            Elements elements = document.select("p.under_video");
+            elements = elements.not("i");
+            return elements.first().text();
         } catch (IOException e) {
-            e.printStackTrace();
             return null;
         }
-        return allAnime;
     }
 
     @Override
-    public Anime search(String name){
+    public Anime search(String query){
         Document document;
         try {
-            document = Jsoup.connect(this.url + "/" + name).userAgent(this.getUserAgent()).get();
+            document = Jsoup.connect(this.url + "/" + query).userAgent(this.getUserAgent()).get();
             if(document.select("h1.header_video").isEmpty()){
                 return null;
             }
-            String nameTarget = document.select("h1.header_video").first().text();
-            nameTarget = nameTarget.replaceAll("Смотреть ", "");
-            nameTarget = nameTarget.replaceAll(" все серии и сезоны", "");
-            nameTarget = nameTarget.replaceAll(" все серии", "");
-            String url = document.location();
-            String style = document.select("div.all_anime_title").attr("style");
-            String image = style.substring(style.indexOf("'") + 1, style.lastIndexOf("'"));
-            Anime anime = new Anime(nameTarget, url, image);
+            String name = parseName(document);
+            String url = parseUrl(document);
+            String image = parseImageUrl(document);
+            Anime anime = new Anime(name, url, image);
             anime.setData(getData(url));
             return anime;
         } catch (IOException e) {
@@ -148,7 +142,7 @@ public class Jutsu implements IAnimeRepository {
         return data;
     }
 
-    public String download(String url, String userAgent){
+    public String getSource(String url, String userAgent){
         Document document = null;
         try {
             document = Jsoup.connect(url).userAgent(userAgent).get();
