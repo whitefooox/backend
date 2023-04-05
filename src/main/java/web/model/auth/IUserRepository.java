@@ -1,6 +1,4 @@
-package web.model.api.out;
-
-import web.model.api.dto.User;
+package web.model.auth;
 
 public interface IUserRepository {
     boolean check(User user);

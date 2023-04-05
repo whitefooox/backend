@@ -6,8 +6,8 @@ import jakarta.ws.rs.NotAuthorizedException;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.ext.Provider;
-import web.model.api.dto.User;
 import web.model.auth.IAuth;
+import web.model.auth.User;
 
 @Provider
 @TokenRequired

@@ -1,8 +1,7 @@
 package web.model.chat;
 
-import web.model.api.dto.Message;
-
 public interface IChat {
-    Message openMessage(String username);
-    Message setUserType(Message message);
+    Message getUserMessage(String text, String username);
+    Message getHello(String username);
+    Message getGoodbye(String username);
 }

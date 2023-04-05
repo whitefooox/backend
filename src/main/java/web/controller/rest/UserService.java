@@ -9,8 +9,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 import web.builder.Built;
-import web.model.api.dto.User;
 import web.model.auth.IAuth;
+import web.model.auth.User;
 
 @Path("/user")
 public class UserService {

@@ -1,1 +1,3 @@
-~/dev/lib/glassfish7/bin/asadmin start-domain
+~/lib/glassfish7/bin/asadmin start-domain
+systemctl start docker
+docker start db

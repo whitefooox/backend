@@ -1,7 +1,4 @@
-package web.model.api.out;
-
-import java.util.List;
-import web.model.api.dto.Anime;
+package web.model.watch;
 
 public interface IAnimeRepository {
     Anime search(String name);

@@ -3,8 +3,8 @@ package web.builder;
 import jakarta.enterprise.inject.Default;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
-import web.model.api.out.IUserRepository;
 import web.model.auth.IAuth;
+import web.model.auth.IUserRepository;
 
 public class Builder {
     

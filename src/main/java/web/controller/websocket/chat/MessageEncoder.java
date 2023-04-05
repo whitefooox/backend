@@ -4,7 +4,7 @@ import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.websocket.EncodeException;
 import jakarta.websocket.Encoder;
-import web.model.api.dto.Message;
+import web.model.chat.Message;
 
 public class MessageEncoder implements Encoder.Text<Message>{
 

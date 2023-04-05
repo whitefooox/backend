@@ -13,7 +13,7 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
 import web.controller.interceptor.TokenRequired;
-import web.model.api.dto.Anime;
+import web.model.watch.Anime;
 import web.model.watch.IWatch;
 
 @Path("/anime")

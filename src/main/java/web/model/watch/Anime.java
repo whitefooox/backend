@@ -1,4 +1,4 @@
-package web.model.api.dto;
+package web.model.watch;
 
 import java.util.LinkedHashMap;
 

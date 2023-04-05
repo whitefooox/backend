@@ -9,8 +9,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import web.model.api.dto.Anime;
-import web.model.api.out.IAnimeRepository;
+
+import web.model.watch.Anime;
+import web.model.watch.IAnimeRepository;
 
 public class Jutsu implements IAnimeRepository {
     

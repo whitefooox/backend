@@ -1,7 +1,5 @@
 package web.model.watch;
 
-import web.model.api.dto.Anime;
-import web.model.api.out.IAnimeRepository;
 import web.repository.anime.source.Jutsu;
 
 public class Watch implements IWatch {

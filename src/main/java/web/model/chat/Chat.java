@@ -1,20 +1,30 @@
 package web.model.chat;
 
-import web.model.api.dto.Message;
-
 public class Chat implements IChat {
 
     @Override
-    public Message openMessage(String username) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'openMessage'");
+    public Message getUserMessage(String text, String username) {
+        Message message = new Message();
+        message.setText(text);
+        message.setUsername(username);
+        message.setType("user");
+        return message;
     }
 
     @Override
-    public Message setUserType(Message message) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setUserType'");
+    public Message getHello(String username) {
+        Message message = new Message();
+        message.setText("Добро пожаловать, " + username + " ^-^");
+        message.setType("system");
+        return message;
     }
 
-    
+    @Override
+    public Message getGoodbye(String username) {
+        Message message = new Message();
+        message.setText("До скорой встречи, " + username + " ^-^");
+        message.setType("system");
+        return message;
+    }
+
 }

@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import web.model.api.dto.User;
+import web.model.auth.User;
 
 @Entity
 @Table(name = "\"accounts\"")

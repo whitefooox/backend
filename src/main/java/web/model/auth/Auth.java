@@ -1,8 +1,6 @@
 package web.model.auth;
 
 import web.controller.token.Token;
-import web.model.api.dto.User;
-import web.model.api.out.IUserRepository;
 
 public class Auth implements IAuth {
 

@@ -6,8 +6,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceUnit;
 import jakarta.transaction.UserTransaction;
-import web.model.api.dto.User;
-import web.model.api.out.IUserRepository;
+import web.model.auth.IUserRepository;
+import web.model.auth.User;
 
 public class UserRepository implements IUserRepository {
 
