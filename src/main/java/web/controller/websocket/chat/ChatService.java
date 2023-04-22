@@ -49,7 +49,7 @@ public class ChatService {
         broadcast(message);
     }   
 
-    private void broadcast(Message message){
+    public static void broadcast(Message message){
         chatServices.forEach(chat -> {
             synchronized (chat){
                 try {

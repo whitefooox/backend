@@ -17,6 +17,7 @@ public class Jutsu implements IAnimeRepository {
     
     private String url = "https://jut.su";
     private List<String> userAgents;
+    private List<Anime> animeList;
 
     public Jutsu(){
         this.userAgents = new ArrayList<>();
@@ -153,5 +154,46 @@ public class Jutsu implements IAnimeRepository {
         }
         Element video = document.select("div.videoContent").select("source").first();
         return video.attr("src");
+    }
+
+    @Override
+    public List<Anime> getAll() {
+        Document document;
+        List<Anime> allAnime;
+        try {
+            document = Jsoup.connect(this.url + "/" + "anime").userAgent(this.getUserAgent()).get();
+            allAnime = new ArrayList<>();
+            Elements animes = document.select("div.all_anime_global");
+            for (Element anime : animes) {
+                String name = anime.select("div.aaname").first().text();
+                String url = this.url + anime.select("a").first().attr("href");
+                allAnime.add(new Anime(name, url, null));
+            }
+            while (!document.select("a.vnright").isEmpty()){
+                String urlNext = this.url + document.select("a.vnright").first().attr("href");
+                System.out.println(urlNext);
+                document = Jsoup.connect(urlNext).userAgent(this.getUserAgent()).get();
+                animes = document.select("div.all_anime_global");
+                for (Element anime : animes) {
+                    String name = anime.select("div.aaname").first().text();
+                    String url = this.url + anime.select("a").first().attr("href");
+                    allAnime.add(new Anime(name, url, null));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return allAnime;
+    }
+
+    @Override
+    public void setAll(List<Anime> animeList){
+        this.animeList = animeList;
+    }
+
+    @Override
+    public Anime getRandom(){
+        return this.animeList.get(new Random().nextInt(this.animeList.size()));
     }
 }

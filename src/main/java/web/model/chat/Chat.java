@@ -27,4 +27,12 @@ public class Chat implements IChat {
         return message;
     }
 
+    @Override
+    public Message getRecommendation(String animeName) {
+        Message message = new Message();
+        message.setText(animeName);
+        message.setType("recommended");
+        return message;
+    }
+
 }

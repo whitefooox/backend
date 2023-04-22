@@ -1,5 +1,7 @@
 package web.model.watch;
 
+import java.util.List;
+
 import web.repository.anime.source.Jutsu;
 
 public class Watch implements IWatch {
@@ -20,5 +22,20 @@ public class Watch implements IWatch {
     public String source(String url, String userAgent) {
         String result = animeRepository.getSource(url, userAgent);
         return result;
+    }
+
+    @Override
+    public List<Anime> getAll() {
+        return animeRepository.getAll();
+    }
+
+    @Override
+    public void updateAll() {
+        animeRepository.setAll(animeRepository.getAll());
+    }
+
+    @Override
+    public Anime getRandom(){
+        return animeRepository.getRandom();
     }
 }
