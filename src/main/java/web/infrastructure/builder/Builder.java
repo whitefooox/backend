@@ -3,7 +3,7 @@ package web.infrastructure.builder;
 import jakarta.enterprise.inject.Default;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
-import web.application.authorization.service.IAuth;
+import web.application.authorization.service.Authorizable;
 import web.application.authorization.user.IUserRepository;
 import web.application.watch.anime.IAnimeRepository;
 import web.application.watch.service.IWatch;
@@ -11,7 +11,7 @@ import web.application.watch.service.IWatch;
 public class Builder {
     
     @Inject @Default
-    private IAuth auth;
+    private Authorizable authService;
 
     @Inject @Default
     private IUserRepository userRepository;
@@ -20,18 +20,18 @@ public class Builder {
     private IAnimeRepository animeRepository;
 
     @Inject @Default
-    private IWatch watch;
+    private IWatch watchService;
 
 
     @Produces @Built
-    public IAuth buildAuth(){
-        auth.setUserRepository(userRepository);
-        return auth;
+    public Authorizable buildAuth(){
+        authService.setUserRepository(userRepository);
+        return authService;
     }
 
     @Produces @Built
     public IWatch buildWatch(){
-        watch.setAnimeRepository(animeRepository);
-        return watch;
+        watchService.setAnimeRepository(animeRepository);
+        return watchService;
     }
 }

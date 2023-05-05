@@ -8,7 +8,8 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
-import web.application.authorization.service.IAuth;
+import web.application.authorization.service.Authorizable;
+import web.application.authorization.service.Tokenable;
 import web.application.authorization.user.User;
 import web.infrastructure.builder.Built;
 
@@ -16,7 +17,10 @@ import web.infrastructure.builder.Built;
 public class UserService {
 
     @Inject @Built
-    private IAuth auth;
+    private Authorizable authService;
+
+    @Inject
+    private Tokenable tokenService;
     
     @POST
     @Path("/auth")
@@ -26,8 +30,8 @@ public class UserService {
         Jsonb jsonb = JsonbBuilder.create();
         User user = jsonb.fromJson(dataJSON, User.class);
         try {
-            if (auth.login(user)){
-                return Response.ok(jsonb.toJson(auth.createToken(user))).build();
+            if (authService.login(user)){
+                return Response.ok(jsonb.toJson(tokenService.createToken(user))).build();
             }
             else {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
@@ -46,8 +50,8 @@ public class UserService {
         Jsonb jsonb = JsonbBuilder.create();
         User user = jsonb.fromJson(dataJSON, User.class);
         try {
-            if (auth.register(user)){
-                return Response.ok(jsonb.toJson(auth.createToken(user))).build();
+            if (authService.register(user)){
+                return Response.ok(jsonb.toJson(tokenService.createToken(user))).build();
             } else {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }

@@ -7,13 +7,10 @@ public class Anime {
     private String name;
     private String url;
     private String image;
+    private String description;
     private LinkedHashMap<String, LinkedHashMap<String, String>> data;
 
-    public Anime(String name, String url, String image){
-        this.name = name;
-        this.url = url;
-        this.image = image;
-    }
+    public Anime(){}
 
     public String getName() {
         return name;
@@ -45,5 +42,13 @@ public class Anime {
 
     public LinkedHashMap<String, LinkedHashMap<String, String>> getData() {
         return data;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

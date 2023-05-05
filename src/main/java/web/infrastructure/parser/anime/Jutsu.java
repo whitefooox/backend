@@ -45,16 +45,12 @@ public class Jutsu implements IAnimeRepository {
         return style.substring(style.indexOf("'") + 1, style.lastIndexOf("'"));
     }
 
-    public String parseDescribe(String query){
-        Document document;
-        try {
-            document = Jsoup.connect(this.url + "/" + query).userAgent(this.getUserAgent()).get();
-            Elements elements = document.select("p.under_video");
-            elements = elements.not("i");
-            return elements.first().text();
-        } catch (IOException e) {
-            return null;
+    public String parseDescription(Document document){
+        Elements p = document.select("p.under_video");
+        for( Element element : p.select("i")){
+            element.remove();
         }
+        return p.text();
     }
 
     @Override
@@ -68,7 +64,12 @@ public class Jutsu implements IAnimeRepository {
             String name = parseName(document);
             String url = parseUrl(document);
             String image = parseImageUrl(document);
-            Anime anime = new Anime(name, url, image);
+            String description = parseDescription(document);
+            Anime anime = new Anime();
+            anime.setName(name);
+            anime.setUrl(url);
+            anime.setImage(image);
+            anime.setDescription(description);
             anime.setData(getData(url));
             return anime;
         } catch (IOException e) {
@@ -163,8 +164,9 @@ public class Jutsu implements IAnimeRepository {
             Elements animes = document.select("div.all_anime_global");
             for (Element anime : animes) {
                 String name = anime.select("div.aaname").first().text();
-                String url = this.url + anime.select("a").first().attr("href");
-                allAnime.add(new Anime(name, url, null));
+                Anime animeTarget = new Anime();
+                animeTarget.setName(name);
+                allAnime.add(animeTarget);
             }
             while (!document.select("a.vnright").isEmpty()){
                 String urlNext = this.url + document.select("a.vnright").first().attr("href");
@@ -172,8 +174,9 @@ public class Jutsu implements IAnimeRepository {
                 animes = document.select("div.all_anime_global");
                 for (Element anime : animes) {
                     String name = anime.select("div.aaname").first().text();
-                    String url = this.url + anime.select("a").first().attr("href");
-                    allAnime.add(new Anime(name, url, null));
+                    Anime animeTarget = new Anime();
+                    animeTarget.setName(name);
+                    allAnime.add(animeTarget);
                 }
             }
         } catch (IOException e) {

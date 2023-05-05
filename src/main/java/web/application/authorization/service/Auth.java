@@ -4,7 +4,7 @@ import web.application.authorization.token.Token;
 import web.application.authorization.user.IUserRepository;
 import web.application.authorization.user.User;
 
-public class Auth implements IAuth {
+public class Auth implements Authorizable, Tokenable {
 
     private IUserRepository userRepository;
 
@@ -14,7 +14,7 @@ public class Auth implements IAuth {
     }
 
     @Override
-    public String createToken(User user) throws Exception {
+    public String createToken(User user){
         return Token.create(user.getLogin());
     }
 
