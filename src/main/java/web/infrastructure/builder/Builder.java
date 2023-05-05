@@ -16,14 +16,12 @@ public class Builder {
     @Inject @Default
     private IUserRepository userRepository;
 
-    /*
-
     @Inject @Default
     private IAnimeRepository animeRepository;
 
     @Inject @Default
     private IWatch watch;
-    */
+
 
     @Produces @Built
     public IAuth buildAuth(){
@@ -31,11 +29,9 @@ public class Builder {
         return auth;
     }
 
-    /*
     @Produces @Built
     public IWatch buildWatch(){
-        watch.injectAnimeRepository(animeRepository);
+        watch.setAnimeRepository(animeRepository);
         return watch;
     }
-    */
 }

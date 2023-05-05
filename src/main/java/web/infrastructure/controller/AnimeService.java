@@ -1,4 +1,4 @@
-package web.infrastructure.rest;
+package web.infrastructure.controller;
 
 import jakarta.inject.Inject;
 import jakarta.json.bind.Jsonb;
@@ -14,12 +14,13 @@ import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
 import web.application.watch.anime.Anime;
 import web.application.watch.service.IWatch;
+import web.infrastructure.builder.Built;
 import web.infrastructure.interceptor.TokenRequired;
 
 @Path("/anime")
 public class AnimeService {
 
-    @Inject
+    @Inject @Built
     private IWatch watch;
 
     @GET

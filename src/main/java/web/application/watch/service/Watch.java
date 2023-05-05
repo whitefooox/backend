@@ -1,14 +1,12 @@
 package web.application.watch.service;
 
 import java.util.List;
-
 import web.application.watch.anime.Anime;
 import web.application.watch.anime.IAnimeRepository;
-import web.infrastructure.parser.anime.Jutsu;
 
 public class Watch implements IWatch {
 
-    private IAnimeRepository animeRepository = new Jutsu();
+    private IAnimeRepository animeRepository;
 
     @Override
     public Anime search(String name) {

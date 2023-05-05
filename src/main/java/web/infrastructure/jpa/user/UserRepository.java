@@ -1,34 +1,26 @@
 package web.infrastructure.jpa.user;
 
 import java.util.List;
-import jakarta.annotation.Resource;
+import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.PersistenceUnit;
-import jakarta.transaction.UserTransaction;
+import jakarta.persistence.PersistenceContext;
 import web.application.authorization.user.IUserRepository;
 import web.application.authorization.user.User;
 
+@Stateless
 public class UserRepository implements IUserRepository {
 
-    @PersistenceUnit(unitName = "PostgreSQL")
-    private EntityManagerFactory entityManagerFactory;
-
-    @Resource
-    private UserTransaction userTransaction;
+    @PersistenceContext(unitName = "PostgreSQL")
+    private EntityManager entityManager;
     
     @Override
     public boolean check(User user) {
         try {
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            userTransaction.begin();
-            entityManager.joinTransaction();
             List<EUser> users = entityManager
             .createQuery("SELECT p FROM EUser p WHERE p.login = :login AND p.password = :password", EUser.class)
             .setParameter("login", user.getLogin())
             .setParameter("password", user.getPassword())
             .getResultList();
-            userTransaction.commit();
             if(users != null && !users.isEmpty()){
                 return true;
             } else return false;
@@ -41,13 +33,9 @@ public class UserRepository implements IUserRepository {
     @Override
     public boolean add(User user) {
         try {
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            userTransaction.begin();
-            entityManager.joinTransaction();
             EUser eUser = new EUser();
             eUser.setAll(user);
             entityManager.persist(eUser);
-            userTransaction.commit();
             return true;
         } catch (Exception e) {
             e.printStackTrace();

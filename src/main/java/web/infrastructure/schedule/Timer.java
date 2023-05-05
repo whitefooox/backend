@@ -12,6 +12,7 @@ import jakarta.ejb.TimerService;
 import jakarta.inject.Inject;
 import web.application.chat.IChat;
 import web.application.watch.service.IWatch;
+import web.infrastructure.builder.Built;
 import web.infrastructure.websocket.chat.ChatService;
 
 @Singleton
@@ -20,10 +21,10 @@ public class Timer {
 
     @Resource
     TimerService tservice; 
-
-    @Inject
+    
+    @Inject @Built
     IWatch watch;
-
+    
     @Inject
     IChat chat;
     
