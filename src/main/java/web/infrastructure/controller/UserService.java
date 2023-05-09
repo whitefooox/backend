@@ -8,20 +8,15 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
-import web.application.authorization.service.Authorizable;
-import web.application.authorization.service.Tokenable;
-import web.application.authorization.user.User;
-import web.infrastructure.builder.Built;
+import web.application.authorization.Authorizable;
+import web.application.authorization.User;
 
 @Path("/user")
 public class UserService {
 
-    @Inject @Built
+    @Inject
     private Authorizable authService;
 
-    @Inject
-    private Tokenable tokenService;
-    
     @POST
     @Path("/auth")
     @Consumes("application/json")
@@ -29,16 +24,12 @@ public class UserService {
     public Response auth(String dataJSON){
         Jsonb jsonb = JsonbBuilder.create();
         User user = jsonb.fromJson(dataJSON, User.class);
-        try {
-            if (authService.login(user)){
-                return Response.ok(jsonb.toJson(tokenService.createToken(user))).build();
-            }
-            else {
-                return Response.status(Response.Status.UNAUTHORIZED).build();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Response.serverError().build();
+        Boolean isAuth = authService.auth(user.getLogin(), user.getPassword());
+        if(isAuth){
+            String token = authService.getToken(user.getLogin());
+            return Response.ok(jsonb.toJson(token)).build();
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
 
@@ -49,15 +40,12 @@ public class UserService {
     public Response reg(String dataJSON){
         Jsonb jsonb = JsonbBuilder.create();
         User user = jsonb.fromJson(dataJSON, User.class);
-        try {
-            if (authService.register(user)){
-                return Response.ok(jsonb.toJson(tokenService.createToken(user))).build();
-            } else {
-                return Response.status(Response.Status.UNAUTHORIZED).build();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Response.serverError().build();
+        Boolean isReg = authService.reg(user.getLogin(), user.getPassword(), user.getEmail());
+        if(isReg){
+            String token = authService.getToken(user.getLogin());
+            return Response.ok(jsonb.toJson(token)).build();
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
 }

@@ -1,4 +1,4 @@
-package web.application.authorization.user;
+package web.application.authorization;
 
 public class User {
     

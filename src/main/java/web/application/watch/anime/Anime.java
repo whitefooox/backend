@@ -1,8 +1,9 @@
 package web.application.watch.anime;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 
-public class Anime {
+public class Anime implements Serializable {
     
     private String name;
     private String url;

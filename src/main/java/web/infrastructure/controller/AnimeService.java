@@ -5,6 +5,7 @@ import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -27,7 +28,7 @@ public class AnimeService {
     @TokenRequired
     @Path("/search/{name}")
     @Produces("application/json")
-    public Response search(@PathParam("name") String name){
+    public Response search(@PathParam("name") String name, @HeaderParam("login") String login){
         Anime anime = watch.search(name);
         Jsonb jsonb = JsonbBuilder.create();
         String json = jsonb.toJson(anime);
