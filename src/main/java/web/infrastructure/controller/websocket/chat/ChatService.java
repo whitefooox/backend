@@ -1,4 +1,4 @@
-package web.infrastructure.websocket.chat;
+package web.infrastructure.controller.websocket.chat;
 
 import java.io.IOException;
 import java.util.HashMap;

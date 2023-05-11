@@ -1,4 +1,4 @@
-package web.infrastructure.controller;
+package web.infrastructure.controller.rest;
 
 import jakarta.inject.Inject;
 import jakarta.json.bind.Jsonb;

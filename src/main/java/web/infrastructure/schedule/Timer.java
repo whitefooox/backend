@@ -14,7 +14,7 @@ import jakarta.inject.Inject;
 import web.application.chat.IChat;
 import web.application.watch.service.IWatch;
 import web.infrastructure.builder.Built;
-import web.infrastructure.websocket.chat.ChatService;
+import web.infrastructure.controller.websocket.chat.ChatService;
 
 @Singleton
 @Startup
