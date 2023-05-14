@@ -17,12 +17,13 @@ public class UserService {
     @Inject
     private Authorizable authService;
 
+    private Jsonb jsonb = JsonbBuilder.create();
+
     @POST
     @Path("/auth")
     @Consumes("application/json")
     @Produces("application/json")
     public Response auth(String dataJSON){
-        Jsonb jsonb = JsonbBuilder.create();
         User user = jsonb.fromJson(dataJSON, User.class);
         Boolean isAuth = authService.auth(user.getLogin(), user.getPassword());
         if(isAuth){
@@ -38,7 +39,6 @@ public class UserService {
     @Consumes("application/json")
     @Produces("application/json")
     public Response reg(String dataJSON){
-        Jsonb jsonb = JsonbBuilder.create();
         User user = jsonb.fromJson(dataJSON, User.class);
         Boolean isReg = authService.reg(user.getLogin(), user.getPassword(), user.getEmail());
         if(isReg){

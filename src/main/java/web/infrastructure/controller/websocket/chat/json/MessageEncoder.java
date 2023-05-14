@@ -1,10 +1,10 @@
-package web.infrastructure.controller.websocket.chat;
+package web.infrastructure.controller.websocket.chat.json;
 
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.websocket.EncodeException;
 import jakarta.websocket.Encoder;
-import web.application.chat.Message;
+import web.application.chat.message.Message;
 
 public class MessageEncoder implements Encoder.Text<Message>{
 

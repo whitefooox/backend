@@ -11,7 +11,8 @@ import jakarta.ejb.TimerConfig;
 import jakarta.ejb.TimerService;
 import jakarta.enterprise.concurrent.ManagedExecutorService;
 import jakarta.inject.Inject;
-import web.application.chat.IChat;
+import web.application.chat.Chatable;
+import web.application.chat.message.MessageWritable;
 import web.application.watch.service.IWatch;
 import web.infrastructure.builder.Built;
 import web.infrastructure.controller.websocket.chat.ChatService;
@@ -29,8 +30,11 @@ public class Timer {
     @Inject @Built
     IWatch watch;
     
+    @Inject @Built
+    Chatable chat;
+
     @Inject
-    IChat chat;
+    MessageWritable messageWriter;
     
     @PostConstruct    
     public void start() {
@@ -40,7 +44,7 @@ public class Timer {
   
     @Timeout
     public void timeout() {
-        ChatService.broadcast(chat.getRecommendation(watch.getRandom().getName()));
+        chat.sendAll(messageWriter.getRecommendation(watch.getRandom().getName()));
     }
 
     private void parsing(){

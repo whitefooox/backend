@@ -12,44 +12,48 @@ import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
-import web.application.chat.IChat;
-import web.application.chat.Message;
+import web.application.chat.Sendable;
+import web.application.chat.message.Message;
+import web.application.chat.message.MessageWritable;
+import web.infrastructure.controller.websocket.chat.json.MessageDecoder;
+import web.infrastructure.controller.websocket.chat.json.MessageEncoder;
 
 @ServerEndpoint(value = "/chat/{username}",
                 decoders = MessageDecoder.class,
                 encoders = MessageEncoder.class)
-public class ChatService {
+public class ChatService implements Sendable {
 
     private Session session;
     private static Set<ChatService> chatServices = new CopyOnWriteArraySet<>();
     private static HashMap<String, String> users = new HashMap<>();
  
     @Inject
-    IChat chat;
+    private MessageWritable messageWriter;
 
     @OnOpen
     public void onOpen(Session session, @PathParam("username") String username) throws IOException, EncodeException{
         this.session = session;
         chatServices.add(this);
         users.put(session.getId(), username);
-        Message message = chat.getHello(username);
-        broadcast(message);
+        Message message = messageWriter.getHello(username);
+        sendAll(message);
     }
 
     @OnMessage
     public void onMessage(Session session, Message message) throws IOException, EncodeException{
-        Message newMessage = chat.getUserMessage(message.getText(), users.get(session.getId()));
-        broadcast(newMessage);
+        Message newMessage = messageWriter.getUserMessage(message.getText(), users.get(session.getId()));
+        sendAll(newMessage);
     }
 
     @OnClose
     public void onClose(Session session){
         chatServices.remove(this);
-        Message message = chat.getGoodbye(users.get(session.getId()));
-        broadcast(message);
+        Message message = messageWriter.getGoodbye(users.get(session.getId()));
+        sendAll(message);
     }   
 
-    public static void broadcast(Message message){
+    @Override
+    public void sendAll(Message message){
         chatServices.forEach(chat -> {
             synchronized (chat){
                 try {

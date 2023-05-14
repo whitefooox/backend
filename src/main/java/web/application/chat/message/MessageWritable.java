@@ -1,6 +1,6 @@
-package web.application.chat;
+package web.application.chat.message;
 
-public interface IChat {
+public interface MessageWritable {
     Message getUserMessage(String text, String username);
     Message getHello(String username);
     Message getGoodbye(String username);

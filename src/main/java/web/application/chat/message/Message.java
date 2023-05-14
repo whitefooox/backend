@@ -1,4 +1,4 @@
-package web.application.chat;
+package web.application.chat.message;
 
 public class Message {
     private String username;

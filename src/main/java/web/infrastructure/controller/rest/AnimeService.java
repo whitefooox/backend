@@ -24,13 +24,14 @@ public class AnimeService {
     @Inject @Built
     private IWatch watch;
 
+    private Jsonb jsonb = JsonbBuilder.create();
+
     @GET
     @TokenRequired
     @Path("/search/{name}")
     @Produces("application/json")
     public Response search(@PathParam("name") String name, @HeaderParam("login") String login){
         Anime anime = watch.search(name);
-        Jsonb jsonb = JsonbBuilder.create();
         String json = jsonb.toJson(anime);
         return Response.ok(json).build();
     }
@@ -42,7 +43,6 @@ public class AnimeService {
     @Produces("application/json")
     public Response source(String json, @Context HttpHeaders headers){
         String userAgent = headers.getRequestHeader("userAgent").get(0);
-        Jsonb jsonb = JsonbBuilder.create();
         String url = jsonb.fromJson(json, String.class);
         String source = watch.source(url, userAgent);
         return Response.ok(jsonb.toJson(source)).build();
